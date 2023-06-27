@@ -22,15 +22,3 @@ jobs:
         run: |
           echo "Esperando 60 segundos para simular las pruebas..."
           sleep 60
-
-      - name: Update status to success
-        uses: geekodour/gh-actions-custom-status@v0.0.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
-        with:
-          args: >-
-            --state=success
-            --context=unit-testing
-            --target_url=https://github.com/${{ github.repository }}/actions
-      
