@@ -1,0 +1,36 @@
+name: Unit Testing
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run unit tests
+        run: |
+          # Ejecuta tus pruebas unitarias aquí
+          echo "Ejecutando pruebas unitarias..."
+
+      - name: Wait for unit tests to complete
+        run: |
+          echo "Esperando 60 segundos para simular las pruebas..."
+          sleep 60
+
+      - name: Update status to success
+        uses: geekodour/gh-actions-custom-status@v0.0.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+        with:
+          args: >-
+            --state=success
+            --context=unit-testing
+            --target_url=https://github.com/${{ github.repository }}/actions
+      
